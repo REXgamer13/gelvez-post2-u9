@@ -1,6 +1,8 @@
-# Unidad 9: Pruebas Unitarias y de Integración Post-Contenido 2
+# Productos Service — Gestión de Productos
 
-Juan sebastian Gelvez botia - 02230131065
+![CI Status](https://img.shields.io/badge/CI-Workflow-blue?logo=github)
+
+**Estudiante**: Juan Sebastian Gelvez Botía - 02230131065
 
 ## 📋 Descripción del Proyecto
 
@@ -174,6 +176,29 @@ Las pruebas unitarias se ejecutan exitosamente con Maven. Cada prueba valida:
 
 La captura anterior corresponde a la ejecución exitosa de la suite de pruebas. Como respaldo adicional, Maven genera el reporte en `target/surefire-reports/` y la cobertura en `target/site/jacoco/`.
 
+## 📊 Cobertura de Código
+
+El proyecto ejecuta análisis de cobertura con **JaCoCo** durante la fase `verify`.
+
+### Cobertura por Clase
+
+| Clase | Líneas Cubiertas | Líneas Totales | Cobertura |
+|-------|-----------------|----------------|-----------|
+| **ProductoServiceImpl** | 15 | 22 | **68%** ✅ |
+| **ProductoController** | 7 | 8 | **87%** ✅ |
+
+### Ejecutar Cobertura Localmente
+
+```bash
+# Generar reporte JaCoCo (disponible después de mvn verify)
+.\mvnw.cmd verify
+
+# Abrir el reporte en navegador
+start target/site/jacoco/index.html
+```
+
+El reporte completo se encuentra en **`target/site/jacoco/index.html`** después de ejecutar `mvn verify`.
+
 ## 🔧 Configuración de la Aplicación
 
 ### application.properties
@@ -184,6 +209,19 @@ spring.datasource.driverClassName=org.h2.Driver
 spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
 spring.h2.console.enabled=true
 ```
+
+## 🚀 Flujo CI/CD
+
+El proyecto incluye un workflow de GitHub Actions que se ejecuta automáticamente en cada push a `main`:
+
+- **Checkout**: Descarga el código fuente
+- **Setup JDK 21**: Configura Java 21 con Maven cache
+- **Compilar y Pruebas**: Ejecuta `mvn verify` (compilación + pruebas + cobertura)
+- **Artefactos**: Sube el reporte JaCoCo a artifacts
+
+**Workflow file**: `.github/workflows/ci.yml`
+
+Accede al estado del workflow en la pestaña **Actions** de tu repositorio en GitHub.
 
 ## 📝 Descripción de Clases
 
